@@ -1,0 +1,38 @@
+.search_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 24px;
+}
+
+.search_input {
+  width: 1232px;
+  height: 44px;
+  border-radius: 5px 0px 0px 5px;
+  border: 1px solid #000000;
+}
+
+.search_btn {
+  width: 48px;
+  height: 44px;
+  background-color: #7089e0;
+  border: 0;
+}
+
+.movielist_wrapper {
+  height: 1104px;
+  margin: 75px 56px 132px;
+}
+
+.trending {
+  font-family: 'Poppins';
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.card_wrapper {
+  display: flex;
+  height: 1038px;
+  margin-top: 48px;
+  justify-content: space-between;
+}
