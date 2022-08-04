@@ -1,15 +1,21 @@
-import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
-import Star from '../../svg/Star 1.svg';
-import './Cards.css';
+import React from 'react'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import Typography from '@mui/material/Typography'
+import { CardActionArea } from '@mui/material'
+import Star from '../../svg/Star 1.svg'
+import './Cards.css'
+import { useHistory } from 'react-router-dom'
 
 export default function Cards({ title, rating, img_path }) {
+  const history = useHistory()
+  const cardOnClick = () => {
+    history.push('/movie_details')
+  }
+
   return (
-    <Card className="card_box">
+    <Card className="card_box" onClick={cardOnClick}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -26,5 +32,5 @@ export default function Cards({ title, rating, img_path }) {
         </CardContent>
       </CardActionArea>
     </Card>
-  );
+  )
 }
