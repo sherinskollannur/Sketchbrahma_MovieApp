@@ -82,6 +82,7 @@ function MovieList() {
                   title={item.title}
                   rating={item.rating}
                   img_path={item.img_path}
+                  movie_id={item.id}
                   key={item.id}
                 />
               ))}

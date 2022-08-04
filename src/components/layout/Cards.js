@@ -8,10 +8,15 @@ import Star from '../../svg/Star 1.svg'
 import './Cards.css'
 import { useHistory } from 'react-router-dom'
 
-export default function Cards({ title, rating, img_path }) {
+export default function Cards({ title, rating, img_path, movie_id }) {
   const history = useHistory()
   const cardOnClick = () => {
-    history.push('/movie_details')
+    history.push({
+      pathname: '/movie_details',
+      state: {
+        movie_id: movie_id,
+      },
+    })
   }
 
   return (
