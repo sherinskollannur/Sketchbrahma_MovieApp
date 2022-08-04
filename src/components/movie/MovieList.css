@@ -32,7 +32,10 @@
 
 .card_wrapper {
   display: flex;
-  height: 1038px;
+  /* height: 1038px; */
+  /* max-width: 900px; */
   margin-top: 48px;
-  justify-content: space-between;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
 }
