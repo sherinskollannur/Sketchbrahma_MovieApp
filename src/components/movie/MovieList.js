@@ -7,12 +7,24 @@ import axios from 'axios'
 import Alert from '@mui/material/Alert'
 import AlertTitle from '@mui/material/AlertTitle'
 import Stack from '@mui/material/Stack'
+import Pagination from '@mui/material/Pagination'
 
 function MovieList() {
   const [movieList, setMovieList] = useState(null)
   const [errors, serErrors] = useState(null)
+  const [page, setPage] = React.useState(1)
+  const [startIndex, setStartIndex] = React.useState(0)
+  const [endIndex, setEndIndex] = React.useState(12)
+  const [rowsPerPage, setRowsPerPage] = React.useState(12)
 
   const searched_movie_ref = useRef()
+
+  const handleChange = (event, value) => {
+    setPage(value)
+    setStartIndex(value * rowsPerPage - rowsPerPage)
+    let start = value * rowsPerPage - rowsPerPage
+    setEndIndex(start + rowsPerPage)
+  }
 
   const dataFormat = (data) => {
     const movie_list = []
@@ -36,6 +48,7 @@ function MovieList() {
       )
       .then((data) => {
         dataFormat(data)
+        console.log(data)
         serErrors(null)
       })
       .catch((error) => {
@@ -49,6 +62,7 @@ function MovieList() {
       .get(`${baseUrl}movie/popular?api_key=${process.env.REACT_APP_API_KEY}`)
       .then((data) => {
         dataFormat(data)
+        console.log(data)
       })
       .catch((error) => {
         serErrors(error.message)
@@ -77,15 +91,18 @@ function MovieList() {
 
           <div className="card_wrapper">
             {movieList &&
-              movieList.map((item) => (
-                <Cards
-                  title={item.title}
-                  rating={item.rating}
-                  img_path={item.img_path}
-                  movie_id={item.id}
-                  key={item.id}
-                />
-              ))}
+              movieList
+                .slice(startIndex, endIndex)
+                .map((item) => (
+                  <Cards
+                    title={item.title}
+                    rating={item.rating}
+                    img_path={item.img_path}
+                    movie_id={item.id}
+                    key={item.id}
+                  />
+                ))}
+
             {movieList && movieList.length === 0 && (
               <Stack sx={{ width: '100%' }} spacing={2}>
                 <Alert severity="info">
@@ -104,6 +121,25 @@ function MovieList() {
               </Stack>
             )}
           </div>
+          {movieList && movieList.length !== 0 && (
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: '20px',
+              }}
+            >
+              <Stack spacing={2}>
+                <Pagination
+                  count={Math.round(movieList.length / rowsPerPage)}
+                  page={page}
+                  rowsPerPage={rowsPerPage}
+                  onChange={handleChange}
+                />
+              </Stack>
+            </div>
+          )}
         </div>
       </form>
     </div>
