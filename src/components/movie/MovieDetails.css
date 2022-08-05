@@ -1,0 +1,35 @@
+.movie_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.movie_content_wrapper {
+  width: 50%;
+  padding: 0px 50px;
+  margin: 100px 0;
+}
+
+.movie_content_wrapper p {
+  margin-top: 20px;
+  font-family: 'Poppins';
+}
+
+.img_wrapper {
+  width: 50%;
+}
+
+@media only screen and (max-width: 768px) {
+  .movie_wrapper {
+    flex-direction: column;
+  }
+
+  .movie_content_wrapper {
+    width: 80%;
+    margin: 50px 0;
+  }
+
+  .img_wrapper {
+    width: 80%;
+  }
+}

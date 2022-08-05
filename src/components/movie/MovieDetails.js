@@ -3,6 +3,7 @@ import { useLocation, useHistory } from 'react-router-dom'
 import { baseUrl } from '../../url/url'
 import axios from 'axios'
 import backIcon from '../../svg/Back icon.svg'
+import './MovieDetails.css'
 
 function MovieDetails() {
   const [movieDetails, setMovieDetails] = useState()
@@ -27,8 +28,6 @@ function MovieDetails() {
         `${baseUrl}movie/${location.state.movie_id}?api_key=${process.env.REACT_APP_API_KEY}`
       )
       .then((data) => {
-        console.log('movie details', data)
-
         setMovieDetails(dataFormat(data))
         setDataLoaded(true)
       })
@@ -40,24 +39,8 @@ function MovieDetails() {
   return (
     <>
       {dataLoaded && (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <div
-            style={{
-              width: '50%',
-              padding: '0px 50px',
-              margin: '100px 0',
-              //   display: 'flex',
-              //   flexDirection: 'column',
-              //   justifyContent: 'center',
-              //   height: '200%',
-            }}
-          >
+        <div className="movie_wrapper">
+          <div className="movie_content_wrapper">
             <img
               src={backIcon}
               onClick={() => {
@@ -65,24 +48,15 @@ function MovieDetails() {
               }}
             />
             <h1 style={{ fontFamily: 'Poppins' }}>{movieDetails.title}</h1>
-            <p style={{ marginTop: '20px', fontFamily: 'Poppins' }}>
-              Rating : {movieDetails.rating.toFixed(2)}/10
-            </p>
-            <p style={{ marginTop: '20px', fontFamily: 'Poppins' }}>
-              {movieDetails.overview}
-            </p>
-            <p style={{ marginTop: '20px', fontFamily: 'Poppins' }}>
-              Release Date : {movieDetails.release_date}
-            </p>
-            <p style={{ marginTop: '20px', fontFamily: 'Poppins' }}>
-              Orginal Language : {movieDetails.original_language}
-            </p>
+            <p>Rating : {movieDetails.rating.toFixed(2)}/10</p>
+            <p>{movieDetails.overview}</p>
+            <p>Release Date : {movieDetails.release_date}</p>
+            <p>Orginal Language : {movieDetails.original_language}</p>
           </div>
 
-          <div style={{ width: '50%' }}>
+          <div className="img_wrapper">
             <img
               width="100%"
-              height="100%"
               src={`https://image.tmdb.org/t/p/w500/${movieDetails.img_path}`}
             />
           </div>
