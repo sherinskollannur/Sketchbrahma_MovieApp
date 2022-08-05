@@ -4,8 +4,14 @@ import { baseUrl } from '../../url/url'
 import axios from 'axios'
 import backIcon from '../../svg/Back icon.svg'
 import './MovieDetails.css'
+import { useSelector } from 'react-redux'
 
 function MovieDetails() {
+  const movieWatchingHistory = useSelector(
+    (state) => state.movieWatchingHistory
+  )
+
+  const [watchingHistory, setWatchingHistory] = useState(0)
   const [movieDetails, setMovieDetails] = useState()
   const [dataLoaded, setDataLoaded] = useState(false)
   const location = useLocation()
@@ -34,6 +40,11 @@ function MovieDetails() {
       .catch((error) => {
         // serErrors(error.message)
       })
+
+    let index = movieWatchingHistory.findIndex(
+      (item) => item.id == location.state.movie_id
+    )
+    setWatchingHistory(movieWatchingHistory[index].watchingNo)
   }, [])
 
   return (
@@ -49,6 +60,9 @@ function MovieDetails() {
             />
             <h1 style={{ fontFamily: 'Poppins' }}>{movieDetails.title}</h1>
             <p>Rating : {movieDetails.rating.toFixed(2)}/10</p>
+            <p style={{ color: 'red' }}>
+              You watching this Movie : {watchingHistory} times
+            </p>
             <p>{movieDetails.overview}</p>
             <p>Release Date : {movieDetails.release_date}</p>
             <p>Orginal Language : {movieDetails.original_language}</p>

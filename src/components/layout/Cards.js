@@ -7,10 +7,21 @@ import { CardActionArea } from '@mui/material'
 import Star from '../../svg/Star 1.svg'
 import './Cards.css'
 import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { watchHistoryActions } from '../../store/movieWatchingHistory'
 
 export default function Cards({ title, rating, img_path, movie_id }) {
+  const dispatch = useDispatch()
+
   const history = useHistory()
   const cardOnClick = () => {
+    dispatch(
+      watchHistoryActions.addWatchingHistory({
+        id: movie_id,
+        title: title,
+      })
+    )
+
     history.push({
       pathname: '/movie_details',
       state: {
