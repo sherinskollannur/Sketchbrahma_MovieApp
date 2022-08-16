@@ -1,7 +1,7 @@
-import './App.css'
-import MovieList from './components/movie/MovieList'
-import MovieDetails from './components/movie/MovieDetails'
-import { Route, Switch } from 'react-router-dom'
+import './App.css';
+import MovieList from './components/movie/MovieList';
+import MovieDetails from './components/movie/MovieDetails';
+import { Route, Switch } from 'react-router-dom';
 
 function App() {
   return (
@@ -10,12 +10,12 @@ function App() {
         <Route path="/" exact>
           <MovieList />
         </Route>
-        <Route path="/movie_details">
+        <Route path="/movie_details/:movie_id">
           <MovieDetails />
         </Route>
       </Switch>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

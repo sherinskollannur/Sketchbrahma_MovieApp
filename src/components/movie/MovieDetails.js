@@ -1,21 +1,23 @@
-import React, { useEffect, useState } from 'react'
-import { useLocation, useHistory } from 'react-router-dom'
-import { baseUrl } from '../../url/url'
-import axios from 'axios'
-import backIcon from '../../svg/Back icon.svg'
-import './MovieDetails.css'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react';
+import { useLocation, useHistory, useParams } from 'react-router-dom';
+import { baseUrl } from '../../url/url';
+import axios from 'axios';
+import backIcon from '../../svg/Back icon.svg';
+import './MovieDetails.css';
+import { useSelector } from 'react-redux';
 
 function MovieDetails() {
   const movieWatchingHistory = useSelector(
     (state) => state.movieWatchingHistory
-  )
+  );
 
-  const [watchingHistory, setWatchingHistory] = useState(0)
-  const [movieDetails, setMovieDetails] = useState()
-  const [dataLoaded, setDataLoaded] = useState(false)
-  const location = useLocation()
-  const history = useHistory()
+  const params = useParams();
+
+  const [watchingHistory, setWatchingHistory] = useState(0);
+  const [movieDetails, setMovieDetails] = useState();
+  const [dataLoaded, setDataLoaded] = useState(false);
+  const location = useLocation();
+  const history = useHistory();
 
   const dataFormat = (data) => {
     return {
@@ -25,27 +27,27 @@ function MovieDetails() {
       rating: data.data.vote_average,
       release_date: data.data.release_date,
       original_language: data.data.original_language,
-    }
-  }
+    };
+  };
 
   useEffect(() => {
     axios
       .get(
-        `${baseUrl}movie/${location.state.movie_id}?api_key=${process.env.REACT_APP_API_KEY}`
+        `${baseUrl}movie/${params.movie_id}?api_key=${process.env.REACT_APP_API_KEY}`
       )
       .then((data) => {
-        setMovieDetails(dataFormat(data))
-        setDataLoaded(true)
+        setMovieDetails(dataFormat(data));
+        setDataLoaded(true);
       })
       .catch((error) => {
         // serErrors(error.message)
-      })
+      });
 
     let index = movieWatchingHistory.findIndex(
-      (item) => item.id == location.state.movie_id
-    )
-    setWatchingHistory(movieWatchingHistory[index].watchingNo)
-  }, [])
+      (item) => item.id == params.movie_id
+    );
+    setWatchingHistory(movieWatchingHistory[index].watchingNo);
+  }, []);
 
   return (
     <>
@@ -55,7 +57,7 @@ function MovieDetails() {
             <img
               src={backIcon}
               onClick={() => {
-                history.push('/')
+                history.push('/');
               }}
             />
             <h1 style={{ fontFamily: 'Poppins' }}>{movieDetails.title}</h1>
@@ -77,7 +79,7 @@ function MovieDetails() {
         </div>
       )}
     </>
-  )
+  );
 }
 
-export default MovieDetails
+export default MovieDetails;

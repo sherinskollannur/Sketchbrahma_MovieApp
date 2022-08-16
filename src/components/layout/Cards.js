@@ -1,34 +1,29 @@
-import React from 'react'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import CardMedia from '@mui/material/CardMedia'
-import Typography from '@mui/material/Typography'
-import { CardActionArea } from '@mui/material'
-import Star from '../../svg/Star 1.svg'
-import './Cards.css'
-import { useHistory } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { watchHistoryActions } from '../../store/movieWatchingHistory'
+import React from 'react';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea } from '@mui/material';
+import Star from '../../svg/Star 1.svg';
+import './Cards.css';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { watchHistoryActions } from '../../store/movieWatchingHistory';
 
 export default function Cards({ title, rating, img_path, movie_id }) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const history = useHistory()
+  const history = useHistory();
   const cardOnClick = () => {
     dispatch(
       watchHistoryActions.addWatchingHistory({
         id: movie_id,
         title: title,
       })
-    )
+    );
 
-    history.push({
-      pathname: '/movie_details',
-      state: {
-        movie_id: movie_id,
-      },
-    })
-  }
+    history.push(`/movie_details/${movie_id}`);
+  };
 
   return (
     <Card className="card_box" onClick={cardOnClick}>
@@ -48,5 +43,5 @@ export default function Cards({ title, rating, img_path, movie_id }) {
         </CardContent>
       </CardActionArea>
     </Card>
-  )
+  );
 }
